@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Subsolo 13 — Ritual de Energia</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="energy"></canvas>
+
+ <header class="nav">
+  <a href="cart.html" class="btn cart-btn">🛒 <span id="cart-count">0</span></a>
+
+  <div class="brand">
+    <img src="S3Fo.png" alt="símbolo">
+    <div class="name">SUBSOLO 13</div>
+  </div>
+
+  <nav class="links">
+    <a href="shop.html">Rituais (Loja)</a>
+    <a href="manifesto.html">Manifesto</a>
+    <a href="contato.html">Contato</a>
+    <button id="play-audio" class="btn ritual-btn">Iniciar ritual (som)</button>
+  </nav>
+</header>
+
+
+  <audio id="ritual-audio" loop src="ES_Survival of the Cruelest - Deathkite.mp3"></audio>
+
+  <main class="main">
+    <section class="hero">
+      <div>
+        <div class="badge">coleção • la morte couture</div>
+        <h1 class="big">Roupas forjadas em <em>energia roxa</em>, selos e aço.</h1>
+        <p class="sub">Cada peça é um fragmento do ritual — estampas, recortes e ferragens que ressoam com o Subsolo.</p>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="moletom recortado.png" alt="Moletom Sanguíneo"></div>
+        <div class="body">
+          <h3>Moletom Sanguíneo — V2</h3>
+          <p>Recortes assimétricos • trama de invocação</p>
+          <div class="cta">
+            <span class="badge">R$ 329,90</span>
+            <a class="btn" href="cart.html">Adicionar</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="sep">
+
+    <section>
+      <h2>Peças do ritual</h2>
+      <div class="grid products">
+        <article class="card">
+          <div class="thumb"><img src="jaqueta de inverno.png" alt="Jaqueta Ritual"></div>
+          <div class="body">
+            <h3>Jaqueta • Insígnias do Véu</h3>
+            <p>Forro sintético, patches e proteção arcana.</p>
+            <div class="cta">
+              <span class="badge">R$ 699,00</span>
+              <a class="btn" href="cart.html">Adicionar</a>
+            </div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb"><img src="camisa de gravata.png" alt="Camisa Gravata"></div>
+          <div class="body">
+            <h3>Camisa • Gravata Escarlate</h3>
+            <p>Vetor demoníaco sobre algodão.</p>
+            <div class="cta"><span class="badge">R$ 219,00</span><a class="btn" href="cart.html">Adicionar</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb"><img src="camisa de sucubuss.png" alt="Mesh Súcubo"></div>
+          <div class="body">
+            <h3>Mesh • Súcubo</h3>
+            <p>Transparência e runas — camada de invocação.</p>
+            <div class="cta"><span class="badge">R$ 179,00</span><a class="btn" href="cart.html">Adicionar</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb"><img src="calça de faixas.png" alt="Calça de faixas"></div>
+          <div class="body">
+            <h3>Calça • Arnês Em X</h3>
+            <p>Fivelas, rebites, trilhas de poder.</p>
+            <div class="cta"><span class="badge">R$ 389,00</span><a class="btn" href="cart.html">Adicionar</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb"><img src="camisa de cruz.png" alt="Tee cruzes"></div>
+          <div class="body">
+            <h3>Tee • Cruzários</h3>
+            <p>Metal e fé colidindo em silk.</p>
+            <div class="cta"><span class="badge">R$ 159,00</span><a class="btn" href="cart.html">Adicionar</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb"><img src="calça pesada.png" alt="Calça pesada"></div>
+          <div class="body">
+            <h3>Calça • Compartimentos</h3>
+            <p>Modelagem ampla • bolsos e zíperes.</p>
+            <div class="cta"><span class="badge">R$ 449,00</span><a class="btn" href="cart.html">Adicionar</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb"><img src="moletom batman ksksk.png" alt="Moletom Asa"></div>
+          <div class="body">
+            <h3>Moletom • Asa</h3>
+            <p>Capuz com asas • tipografia vampírica.</p>
+            <div class="cta"><span class="badge">R$ 299,00</span><a class="btn" href="cart.html">Adicionar</a></div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>© Subsolo 13 · Feito no subsolo com energia roxa.</footer>
+<script>
+let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+function updateCartCount() {
+  const total = cart.reduce((sum, item) => sum + item.qty, 0);
+  document.getElementById('cart-count').textContent = total;
+}
+
+// adicionar item com imagem
+function addToCart(name, price, img) {
+  const existing = cart.find(i => i.name === name);
+  if (existing) existing.qty++;
+  else cart.push({ name, price, img, qty: 1 });
+  localStorage.setItem('cart', JSON.stringify(cart));
+  updateCartCount();
+  alert(`${name} adicionado ao ritual.`);
+}
+
+// liga os botões
+document.querySelectorAll('.card .btn').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    const card = e.target.closest('.card');
+    const name = card.querySelector('h3').textContent;
+    const price = card.querySelector('.badge').textContent;
+    const img = card.querySelector('img').src;
+    addToCart(name, price, img);
+  });
+});
+
+updateCartCount();
+</script>
+
+
+  <script src="particles.js"></script>
+  <script src="ritual.js"></script>
+</body>
+</html>

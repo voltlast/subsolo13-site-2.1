@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ritual - Carrinho</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<canvas id="energy"></canvas>
+
+<header class="nav">
+  <a href="cart.html" class="btn cart-btn">🛒 <span id="cart-count">0</span></a>
+  <div class="brand">
+    <img src="S3Fo.png" alt="símbolo">
+    <div class="name">SUBSOLO 13</div>
+  </div>
+  <nav class="links">
+    <a href="shop.html">Rituais (Loja)</a>
+    <a href="manifesto.html">Manifesto</a>
+    <a href="contato.html">Contato</a>
+    <button id="play-audio" class="btn ritual-btn">Iniciar ritual (som)</button>
+  </nav>
+</header>
+<audio id="ritual-audio" loop src="ES_Survival of the Cruelest - Deathkite.mp3"></audio>
+
+<main class="main">
+  <h1>Seu Ritual</h1>
+  <div id="cart-items" class="cart-container"></div>
+  <div id="cart-total"></div>
+  <button id="checkout" class="btn" style="margin-top:20px;">Finalizar Ritual</button>
+</main>
+
+<footer>© Subsolo 13</footer>
+
+<script src="particles.js"></script>
+<script>
+let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+function saveCart() {
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function updateCartCount() {
+  const total = cart.reduce((sum, i) => sum + i.qty, 0);
+  document.getElementById('cart-count').textContent = total;
+}
+
+function renderCart() {
+  const box = document.getElementById('cart-items');
+  const totalBox = document.getElementById('cart-total');
+  box.innerHTML = '';
+  if (cart.length === 0) {
+    box.innerHTML = '<p>O ritual está vazio.</p>';
+    totalBox.innerHTML = '';
+    return;
+  }
+
+  let total = 0;
+  cart.forEach((item, idx) => {
+    const priceNum = parseFloat(item.price.replace('R$', '').replace('.', '').replace(',', '.'));
+    total += priceNum * item.qty;
+    const div = document.createElement('div');
+    div.className = 'cart-line';
+    div.innerHTML = `
+      <img src="${item.img}" alt="${item.name}" class="cart-thumb">
+      <div class="cart-info">
+        <h3>${item.name}</h3>
+        <p>${item.price}</p>
+        <div class="qty-controls">
+          <button class="qty-btn" data-i="${idx}" data-act="minus">–</button>
+          <span>${item.qty}</span>
+          <button class="qty-btn" data-i="${idx}" data-act="plus">+</button>
+          <button class="del-btn" data-i="${idx}">🗑️</button>
+        </div>
+      </div>
+    `;
+    box.appendChild(div);
+  });
+
+  totalBox.innerHTML = `<h3>Total: R$ ${total.toFixed(2).replace('.', ',')}</h3>`;
+  saveCart();
+  updateCartCount();
+}
+
+// controle de quantidade
+document.addEventListener('click', e => {
+  if (e.target.classList.contains('qty-btn')) {
+    const i = +e.target.dataset.i;
+    const act = e.target.dataset.act;
+    if (act === 'plus') cart[i].qty++;
+    else if (act === 'minus' && cart[i].qty > 1) cart[i].qty--;
+    else if (act === 'minus' && cart[i].qty === 1) cart.splice(i, 1);
+    renderCart();
+  } else if (e.target.classList.contains('del-btn')) {
+    const i = +e.target.dataset.i;
+    cart.splice(i, 1);
+    renderCart();
+  }
+});
+
+// finalizar ritual (simulação)
+document.getElementById('checkout').onclick = () => {
+  if (cart.length === 0) return alert('O ritual está vazio.');
+  alert('⚡ Ritual concluído! A energia será enviada.');
+  cart = [];
+  saveCart();
+  renderCart();
+};
+
+renderCart();
+</script>
+<script src="ritual.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Subsolo 13 — Portal</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="energy"></canvas>
+  <div id="portal" aria-hidden="true" class="center">
+    <img class="sigil" src="S3Fo.png" alt="Símbolo do Ritual">
+  </div>
+
+  <div class="gate-wrap">
+    <section class="gate">
+      <img src="S3Fo.png" alt="Símbolo Subsolo 13">
+      <h1>SUBSOLO 13</h1>
+      <p>Ritual de Energia • Acesso restrito</p>
+      <form id="gate-form" class="field" autocomplete="off">
+        <input id="pass" type="password" placeholder="Senha do ritual" aria-label="Senha" required>
+        <button class="btn" type="submit">Entrar</button>
+      </form>
+      <p class="small">Dica: a senha foi entoada no 23•12•25.</p>
+    </section>
+  </div>
+
+  <script src="particles.js"></script>
+  <script src="ritual.js"></script>
+</body>
+</html>

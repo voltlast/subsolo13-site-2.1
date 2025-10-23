@@ -1,0 +1,84 @@
+
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Subsolo 13 — Contato</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="energy"></canvas>
+  <header class="nav">
+ <header class="nav">
+  <a href="cart.html" class="btn cart-btn">🛒 <span id="cart-count">0</span></a>
+
+  <div class="brand">
+    <img src="S3Fo.png" alt="símbolo">
+    <div class="name">SUBSOLO 13</div>
+  </div>
+
+  <nav class="links">
+    <a href="shop.html">Rituais (Loja)</a>
+    <a href="manifesto.html">Manifesto</a>
+    <a href="contato.html">Contato</a>
+    <button id="play-audio" class="btn ritual-btn">Iniciar ritual (som)</button>
+  </nav>
+</header>
+<audio id="ritual-audio" loop src="ES_Survival of the Cruelest - Deathkite.mp3"></audio>
+  <main class="main">
+    <h1>Contato</h1>
+    <p>Fale o que precisa e o Subsolo responde.</p>
+    <form id="contato-form" action="https://formspree.io/f/mqayvrae" method="POST">
+  <div class="form-group">
+    <label for="nome">Nome</label>
+    <input type="text" id="nome" name="nome" required placeholder="Seu nome ritualístico">
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required placeholder="seu@email.com">
+  </div>
+
+  <div class="form-group full">
+    <label for="mensagem">Mensagem</label>
+    <textarea id="mensagem" name="mensagem" rows="5" required placeholder="Suas palavras ao Subsolo..."></textarea>
+  </div>
+
+  <button type="submit" class="btn enviar">Enviar Invocação</button>
+</form>
+
+
+  </main>
+<section class="outros-canais">
+  <h2>Outros Canais</h2>
+  <div class="contatos-grid">
+    <p>📧 <strong>contato@subsolo13.com</strong></p>
+    <p>📦 <strong>suporte@subsolo13.com</strong></p>
+    <p>📍 <strong>Subsolo XIII</strong> — Porto da Névoa, Zona Cinza</p>
+    <p>🕯️ respostas em até <strong>48h</strong> (ou quando o véu permitir).</p>
+  </div>
+</section>
+  <footer>© Subsolo 13</footer>
+  <script>
+const form = document.getElementById('contato-form');
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const data = new FormData(form);
+  const response = await fetch(form.action, {
+    method: form.method,
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  });
+  if (response.ok) {
+    alert('🕯️ Invocação enviada com sucesso. O Subsolo responderá pelo véu.');
+    form.reset();
+  } else {
+    alert('⚠️ Falha no envio. As energias estão instáveis, tente novamente.');
+  }
+});
+</script>
+  <script src="particles.js"></script>
+  <script src="ritual.js"></script>
+</body>
+</html>
